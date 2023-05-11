@@ -1,0 +1,4 @@
+#Sat Apr 22 17:53:33 ICT 2023
+base.0=D\:\\8. Programming\\Flutter Project\\Uangku Pencatat Keuangan\\uangku_pencatat_keuangan\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
