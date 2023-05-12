@@ -14,7 +14,7 @@ class FormMoney extends StatelessWidget {
 
     if (type == 1) {
       return Scaffold(
-        appBar: ,
+        appBar: AppBar(),
         body: Container(
           color: Colors.red,
         ),

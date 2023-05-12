@@ -12,11 +12,11 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->D:\8. Programming\Flutter Project\Uangku Pencatat Keuangan\uangku_pencatat_keuangan\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->D:\8. Programming\Flutter Project\Uangku Pencatat Keuangan\uangku_pencatat_keuangan\android\app\src\debug\AndroidManifest.xml:6:22-64
+14-->D:\8. Programming\Flutter Project\Uangku-Flutter-Edition\Uangku Pencatat Keuangan\uangku_pencatat_keuangan\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->D:\8. Programming\Flutter Project\Uangku-Flutter-Edition\Uangku Pencatat Keuangan\uangku_pencatat_keuangan\android\app\src\debug\AndroidManifest.xml:6:22-64
 15
 16    <application
-17        android:name="android.app.Application"
+17        android:name="io.flutter.app.FlutterMultiDexApplication"
 18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 18-->[androidx.core:core:1.6.0] C:\Users\Aril\.gradle\caches\transforms-2\files-2.1\122df2e57d294d1a53db26bbc3b813c1\core-1.6.0\AndroidManifest.xml:24:18-86
 19        android:debuggable="true"
