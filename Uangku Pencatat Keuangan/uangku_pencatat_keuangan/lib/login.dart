@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
+import 'dart:developer' as dev;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -154,16 +157,56 @@ class _login_pageState extends State<login_page> {
             ))));
   }
 
-  void LoginButtonPressed() {
-    if (_formKey.currentState.validate()) {
-      _username = UsernameController.text;
-      _password = PasswordController.text;
+  Future<void> LoginButtonPressed() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-      Fluttertoast.showToast(msg: "data: " + _username + " & " + _password);
+    CollectionReference accounts =
+        FirebaseFirestore.instance.collection('accounts');
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: ((context) => Home(_username))));
-    }
+    accounts.where("username", isEqualTo: UsernameController.text).get().then(
+        (value) {
+      for (var name in value.docs) {
+        if (name['password'] != PasswordController.text) {
+          Fluttertoast.showToast(msg: "Error: Password akun anda Salah.");
+        } else {
+          if (_formKey.currentState.validate()) {
+            _username = UsernameController.text;
+            _password = PasswordController.text;
+
+            Fluttertoast.showToast(msg: "Login Berhasil");
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: ((context) => Home(_username))));
+          }
+        }
+
+        if (_formKey.currentState.validate()) {
+          _username = UsernameController.text;
+          _password = PasswordController.text;
+
+          //Fluttertoast.showToast(msg: "data: " + _username + " & " + _password);
+
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: ((context) => Home(_username))));
+        }
+      }
+
+      if (value.docs.isEmpty) {
+        Fluttertoast.showToast(msg: "Error: Data tidak ditemukan.");
+      }
+    }, onError: (e) => Fluttertoast.showToast(msg: "Error: $e"));
+
+    // accounts.doc('Q382X1Hn17Oh00DDRAgo').snapshots().listen((accountData) {
+    //   print(accountData['id'].toString());
+    // });
+
+    // QuerySnapshot querysnapshot = await firestore.collection('accounts').get();
+    // var data = querysnapshot.docs.map((contacts) {
+    //   contacts['ids'] & contacts['username'];
+    // }).toList();
+
+    // var dataClear =
+    //     data.toString().replaceAll(RegExp("{"), "").replaceAll(RegExp("}"), "");
+    // print(dataClear);
   }
 
   void RegisterButtonPressed() {

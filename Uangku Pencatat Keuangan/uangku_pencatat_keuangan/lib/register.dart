@@ -1,9 +1,14 @@
+import 'dart:developer' as dev;
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uangku_pencatat_keuangan/Model/account.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key key}) : super(key: key);
@@ -196,10 +201,27 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void Registered() {
+    final db = FirebaseFirestore.instance;
+
     if (_formKey.currentState.validate()) {
       _username = UsernameController.text;
       _password = PasswordController.text;
-      Fluttertoast.showToast(msg: "data: " + _username + " & " + _password);
+
+      _createOrUpdate({username, password}) async {
+        final accountDb = db.collection('accounts').doc();
+
+        Account account =
+            Account(username: _username, password: _password, id: accountDb.id);
+
+        await accountDb.set(account.toJson()).then(
+            (value) => dev.log("Account upload successfuly!"),
+            onError: (e) => dev.log("error uploading Account: $e"));
+
+        Fluttertoast.showToast(msg: "data: " + _username + " & " + _password);
+      }
+
+      _createOrUpdate(password: _password, username: _username)
+          .then((value) => Navigator.pop(context));
     }
   }
 }
