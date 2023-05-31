@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   String Uid;
+  int Saldo = 0;
   TabController _tabcontroller;
   _HomeState(this.Uid);
 
@@ -96,7 +97,7 @@ class _HomeState extends State<HomeScreen> with SingleTickerProviderStateMixin {
                             fontSize: 20),
                       ),
                       Text(
-                        "Rp 100.000",
+                        "Rp ${Saldo}",
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: "Inter",
