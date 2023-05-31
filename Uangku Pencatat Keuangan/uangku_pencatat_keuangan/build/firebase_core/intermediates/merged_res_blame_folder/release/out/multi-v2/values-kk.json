@@ -1,0 +1,82 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\8. Programming\\Flutter Project\\Uangku-Flutter-Edition\\Uangku Pencatat Keuangan\\uangku_pencatat_keuangan\\build\\firebase_core\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-kk\\values-kk.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Aril\\.gradle\\caches\\transforms-2\\files-2.1\\398e7960c5a7b75824d763808a95fd3c\\core-1.6.0\\res\\values-kk\\values-kk.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "219",
+                        "endColumns": "100",
+                        "endOffsets": "315"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Aril\\.gradle\\caches\\transforms-2\\files-2.1\\016a45a416d97a507b7977bfddb6c94a\\jetified-play-services-basement-18.1.0\\res\\values-kk\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "159",
+                        "endOffsets": "354"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "163",
+                        "endOffsets": "214"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\8. Programming\\Flutter Project\\Uangku-Flutter-Edition\\Uangku Pencatat Keuangan\\uangku_pencatat_keuangan\\build\\firebase_core\\intermediates\\res\\merged\\release\\values-kk\\values-kk.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Aril\\.gradle\\caches\\transforms-2\\files-2.1\\398e7960c5a7b75824d763808a95fd3c\\core-1.6.0\\res\\values-kk\\values-kk.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "219",
+                        "endColumns": "100",
+                        "endOffsets": "315"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Aril\\.gradle\\caches\\transforms-2\\files-2.1\\016a45a416d97a507b7977bfddb6c94a\\jetified-play-services-basement-18.1.0\\res\\values-kk\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "159",
+                        "endOffsets": "354"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "163",
+                        "endOffsets": "214"
+                    }
+                }
+            ]
+        }
+    ]
+}

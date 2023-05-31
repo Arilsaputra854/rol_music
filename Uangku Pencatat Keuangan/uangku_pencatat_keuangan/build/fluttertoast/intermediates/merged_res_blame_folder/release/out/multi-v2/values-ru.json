@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\8. Programming\\Flutter Project\\Uangku-Flutter-Edition\\Uangku Pencatat Keuangan\\uangku_pencatat_keuangan\\build\\fluttertoast\\intermediates\\res\\merged\\release\\values-ru\\values-ru.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Aril\\.gradle\\caches\\transforms-2\\files-2.1\\398e7960c5a7b75824d763808a95fd3c\\core-1.6.0\\res\\values-ru\\values-ru.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\8. Programming\\Flutter Project\\Uangku-Flutter-Edition\\Uangku Pencatat Keuangan\\uangku_pencatat_keuangan\\build\\fluttertoast\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-ru\\values-ru.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Aril\\.gradle\\caches\\transforms-2\\files-2.1\\398e7960c5a7b75824d763808a95fd3c\\core-1.6.0\\res\\values-ru\\values-ru.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
