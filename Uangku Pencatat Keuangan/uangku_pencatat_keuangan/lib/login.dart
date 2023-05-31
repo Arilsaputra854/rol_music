@@ -3,9 +3,11 @@ import 'dart:math';
 import 'dart:developer' as dev;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uangku_pencatat_keuangan/emailVer.dart';
 import 'package:uangku_pencatat_keuangan/home.dart';
 import 'package:uangku_pencatat_keuangan/register.dart';
 
@@ -17,14 +19,14 @@ class login_page extends StatefulWidget {
 }
 
 class _login_pageState extends State<login_page> {
-  TextEditingController UsernameController = new TextEditingController();
+  TextEditingController EmailController = new TextEditingController();
   TextEditingController PasswordController = new TextEditingController();
-  String _username = "", _password = "";
+  String _Email = "", _password = "";
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    UsernameController.dispose();
+    EmailController.dispose();
     PasswordController.dispose();
     super.dispose();
   }
@@ -74,7 +76,7 @@ class _login_pageState extends State<login_page> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Username",
+                                  Text("Email",
                                       style: TextStyle(
                                           fontSize: 20, fontFamily: "Inter")),
                                   Container(
@@ -84,10 +86,10 @@ class _login_pageState extends State<login_page> {
                                     child: TextFormField(
                                         validator: (value) {
                                           if (value.isEmpty) {
-                                            return "Please enter your username.";
+                                            return "Please enter your Email.";
                                           }
                                         },
-                                        controller: UsernameController,
+                                        controller: EmailController,
                                         decoration: InputDecoration(
                                           border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
@@ -158,55 +160,30 @@ class _login_pageState extends State<login_page> {
   }
 
   Future<void> LoginButtonPressed() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    if (_formKey.currentState.validate()) {
+      _Email = EmailController.text;
+      _password = PasswordController.text;
 
-    CollectionReference accounts =
-        FirebaseFirestore.instance.collection('accounts');
-
-    accounts.where("username", isEqualTo: UsernameController.text).get().then(
-        (value) {
-      for (var name in value.docs) {
-        if (name['password'] != PasswordController.text) {
-          Fluttertoast.showToast(msg: "Error: Password akun anda Salah.");
-        } else {
-          if (_formKey.currentState.validate()) {
-            _username = UsernameController.text;
-            _password = PasswordController.text;
-
-            Fluttertoast.showToast(msg: "Login Berhasil");
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: ((context) => Home(_username))));
-          }
-        }
-
-        if (_formKey.currentState.validate()) {
-          _username = UsernameController.text;
-          _password = PasswordController.text;
-
-          //Fluttertoast.showToast(msg: "data: " + _username + " & " + _password);
-
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: ((context) => Home(_username))));
+      try {
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: _Email, password: _password)
+            .then((value) {
+          Fluttertoast.showToast(msg: "Login Berhasil");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: ((context) => EmailVerificationScreen())));
+        });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          Fluttertoast.showToast(msg: 'Error: Akun belum Terdaftar.');
+        } else if (e.code == 'wrong-password') {
+          Fluttertoast.showToast(msg: 'Error: Password salah.');
+        } else if (e.code == 'invalid-email') {
+          Fluttertoast.showToast(msg: 'Error: Email tidak valid.');
         }
       }
-
-      if (value.docs.isEmpty) {
-        Fluttertoast.showToast(msg: "Error: Data tidak ditemukan.");
-      }
-    }, onError: (e) => Fluttertoast.showToast(msg: "Error: $e"));
-
-    // accounts.doc('Q382X1Hn17Oh00DDRAgo').snapshots().listen((accountData) {
-    //   print(accountData['id'].toString());
-    // });
-
-    // QuerySnapshot querysnapshot = await firestore.collection('accounts').get();
-    // var data = querysnapshot.docs.map((contacts) {
-    //   contacts['ids'] & contacts['username'];
-    // }).toList();
-
-    // var dataClear =
-    //     data.toString().replaceAll(RegExp("{"), "").replaceAll(RegExp("}"), "");
-    // print(dataClear);
+    }
   }
 
   void RegisterButtonPressed() {

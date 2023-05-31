@@ -3,6 +3,6 @@
 3    package="io.github.ponnamkarthik.toast.fluttertoast" >
 4
 5    <uses-sdk android:minSdkVersion="16" />
-5-->C:\Users\Aril\AppData\Local\Pub\Cache\hosted\pub.dev\fluttertoast-8.2.1\android\src\main\AndroidManifest.xml
+5-->D:\8. Programming\flutter\flutter_windows_3.7.5-stable\flutter\.pub-cache\hosted\pub.dev\fluttertoast-8.2.1\android\src\main\AndroidManifest.xml
 6
 7</manifest>

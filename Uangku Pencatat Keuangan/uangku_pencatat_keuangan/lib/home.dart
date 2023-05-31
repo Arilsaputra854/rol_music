@@ -1,20 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'form_money.dart';
 
-class Home extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final String username;
-  Home(this.username);
+  HomeScreen(this.username);
 
   @override
-  State<Home> createState() => _HomeState(username);
+  State<HomeScreen> createState() => _HomeState(username);
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  String username;
+class _HomeState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  String Uid;
   TabController _tabcontroller;
-  _HomeState(this.username);
+  _HomeState(this.Uid);
 
   @override
   void initState() {
@@ -113,7 +114,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     Container(
                         margin: EdgeInsets.all(5),
                         child: Text(
-                          username,
+                          FirebaseAuth.instance.currentUser.email,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",
@@ -149,7 +150,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return FormMoney(1);
+                      return FormMoneyScreen(1);
                     }));
                   },
                   icon: Image.asset("assets/img/icon_money_in.png")),
@@ -168,7 +169,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return FormMoney(0);
+                      return FormMoneyScreen(0);
                     }));
                   },
                   icon: Image.asset("assets/img/icon_money_out.png")),
