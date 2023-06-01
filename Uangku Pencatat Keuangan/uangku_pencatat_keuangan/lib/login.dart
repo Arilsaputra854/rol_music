@@ -169,10 +169,16 @@ class _login_pageState extends State<login_page> {
             .signInWithEmailAndPassword(email: _Email, password: _password)
             .then((value) {
           Fluttertoast.showToast(msg: "Login Berhasil");
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: ((context) => EmailVerificationScreen())));
+
+          if (FirebaseAuth.instance.currentUser.emailVerified == false) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => EmailVerificationScreen())));
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => HomeScreen())));
+          }
         });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {

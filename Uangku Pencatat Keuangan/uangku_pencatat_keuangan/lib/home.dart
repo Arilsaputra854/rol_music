@@ -5,18 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'form_money.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String username;
-  HomeScreen(this.username);
-
+  const HomeScreen({Key key}) : super(key: key);
   @override
-  State<HomeScreen> createState() => _HomeState(username);
+  State<HomeScreen> createState() => _HomeState();
 }
 
 class _HomeState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-  String Uid;
   int Saldo = 0;
   TabController _tabcontroller;
-  _HomeState(this.Uid);
 
   @override
   void initState() {

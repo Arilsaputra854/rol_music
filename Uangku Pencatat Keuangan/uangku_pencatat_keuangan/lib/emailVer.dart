@@ -34,12 +34,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Email berhasil Terverifikasi.")));
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) =>
-                    HomeScreen(FirebaseAuth.instance.currentUser.uid))));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: ((context) => HomeScreen())));
         timer.cancel();
+      } else {
+        FirebaseAuth.instance.currentUser.sendEmailVerification();
       }
     }
 
@@ -118,8 +117,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                   backgroundColor: Colors.yellow,
                                 ),
                                 onPressed: () {
-                                  FirebaseAuth.instance.currentUser
-                                      .sendEmailVerification();
                                   checkEmailVerified();
                                 },
                                 child: Text("Kirim Ulang",
