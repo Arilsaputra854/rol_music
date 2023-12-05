@@ -17,3 +17,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/img/Logo.png
+  fonts:
+    - family: Futura
+      fonts:
+        - asset: assets/fonts/futura_font.ttf
