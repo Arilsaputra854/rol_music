@@ -1,3 +1,4 @@
+import "package:audioplayers/audioplayers.dart";
 import "package:flutter/material.dart";
 import "package:rol_music/model/music.dart";
 
@@ -19,6 +20,8 @@ class _playerPageState extends State<playerPage>
     
   @override
   Widget build(BuildContext context) {
+
+    final player = AudioPlayer();
 
     Music nowPlaying = data[index];
 
@@ -97,7 +100,11 @@ class _playerPageState extends State<playerPage>
                         shape: CircleBorder(), color: Colors.black),
                     child: IconButton(
                         iconSize: 50,
-                        onPressed: () {},
+                        onPressed: () {
+                          var src = AssetSource(nowPlaying.musicUrl);
+                          player.play(src);                   
+
+                        },
                         icon: Icon(
                           Icons.play_arrow,
                           color: Colors.white,

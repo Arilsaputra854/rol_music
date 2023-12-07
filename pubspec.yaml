@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.2.0 <4.0.0'
 
 dependencies:
+  audioplayers: ^5.2.1
   flutter:
     sdk: flutter
 
@@ -19,7 +20,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/Logo.png
-    - assets/music/
+    - assets/music/iphone_5s_ringtone.mp3
   fonts:
     - family: Futura
       fonts:
