@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rol_music/model/music.dart";
 import "package:rol_music/player_page.dart";
 
 class HomePage extends StatelessWidget {
@@ -22,55 +23,21 @@ class HomePage extends StatelessWidget {
   }
 
   listData() {
-    List<String> DummySong = [
-      "Tak Pantas Terluka - Keisya Levronka",
-      "Cinta Tlah Terlambat - Steven Pasaribu",
-      "Mimpi - Putri Ariani",
-      "Satu-satu - Idgitaf",
-      "Rayuan Perempuan Gila - Nadin Amizah",
-      "Nanti Kita Seperti Ini - Batas Senja",
-      "Semua Akan Dirayakan - Nadin Amizah",
-      "Kembali Pulang - Suara Kayu & Feby Putri",
-      "Aku Yang Terluka - Lyodra Ginting",
-      "Tak Di Tanganku - Rendy Pandugo",
-      "Jiwa yang Bersedih - Ghea Indrawari",
-      "Tak Ingin Usai - Keisya Levronka",
-      "Terlukis Indah - Rizky Febian & Ziva Magnolya",
-      "Tentang Dirimu - Raisa",
-      "Bagaimana Kalau Aku Tidak Baik-Baik Saja - Judika",
-      "Ingkar - Rizky Febian",
-      "Melawan Restu - Virgoun",
-      "Sekali Seumur Hidup - Isyana Sarasvati",
-      "Perlahan - Fiersa Besari",
-      "Seperti Bidadari - Rossa",
-      "Masih Ada - Lyodra Ginting",
-      "Lebih Indah - Andmesh Kamaleng",
-      "Cinta Sejati - Judika",
-      "Masih Berharap - Rossa",
-      "Dilema - Isyana Sarasvati",
-      "Surat Cinta untuk Starla - Virgoun",
-      "Kisah Cintaku - Once Mekel",
-      "Salam Terakhir - D'Masiv",
-      "Bintang di Surga - Armada",
-      "Laguku untukmu - Afgan",
-      "Cinta Kita - Titiek Puspa",
-      "Pernah Terluka - Marcell Siahaan",
-      "Kaulah yang Terindah - Dewa 19",
-      "Sempurna - Andra & The BackBone",
-      "Rindu - Melly Goeslaw",
-      "Kenangan Terindah - Dewa 19"
-    ];
+    List<Music> musicList = [];
+    musicList.add(Music("Iphone 5s Ringtone", "assets/music/iphone_5s_ringtone.mp3"));
+    musicList.add(Music("Iphone Ringtone", "assets/music/iphone_ringtone.mp3"));
+    musicList.add(Music("Samsung A80 Ringtone", "assets/music/samsung_a80_ringtone.mp3"));
 
-    if (DummySong.isNotEmpty) {
+    if (musicList.isNotEmpty) {
       return ListView.builder(
-          itemCount: DummySong.length,
+          itemCount: musicList.length,
           itemBuilder: (BuildContext context, int position) {
             return Container(
               margin: EdgeInsets.only(left: 20,right: 20,top:5,bottom: 5),
               child: Card(
                 child: InkWell(
                     onTap: () {
-                      goToPlayerPage(context, DummySong, position);
+                      goToPlayerPage(context, musicList, position);
                     },
                     child: Container(
                         alignment: Alignment.centerLeft,
@@ -78,7 +45,7 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.all(10),
                         child: Text(
                             style: TextStyle(fontFamily: "Futura"),
-                            DummySong[position]))),
+                            musicList[position].musicName))),
                 elevation: 2,
               ),
             );
@@ -91,7 +58,7 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  goToPlayerPage(BuildContext context, List<String> data, int index) {
+  goToPlayerPage(BuildContext context, List<Music> data, int index) {
     return Navigator.push(context, MaterialPageRoute(builder: (context) {
       return playerPage(data, index);
     }));

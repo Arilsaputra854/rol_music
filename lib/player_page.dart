@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
+import "package:rol_music/model/music.dart";
 
 class playerPage extends StatefulWidget {
-  final List<String> data;
+  final List<Music> data;
   final int index;
   const playerPage(@required  this.data,@required this.index, {super.key});
 
@@ -11,15 +12,15 @@ class playerPage extends StatefulWidget {
 
 class _playerPageState extends State<playerPage>
     with TickerProviderStateMixin {
-    List<String> data;
+    List<Music> data;
     int index;
 
-    _playerPageState(List<String> this.data, this.index);
+    _playerPageState(List<Music> this.data, this.index);
     
   @override
   Widget build(BuildContext context) {
 
-    String nowPlaying = data[index];
+    Music nowPlaying = data[index];
 
     final AnimationController _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 5))
@@ -52,7 +53,7 @@ class _playerPageState extends State<playerPage>
               height: 20,
             ),
             Text(
-              nowPlaying,
+              nowPlaying.musicName,
               style: TextStyle(fontSize: 20, fontFamily: "Futura",),textAlign: TextAlign.center,
             ),
             Container(
