@@ -1,19 +1,30 @@
 import "package:flutter/material.dart";
 
 class playerPage extends StatefulWidget {
-  const playerPage({super.key});
+  final List<String> data;
+  final int index;
+  const playerPage(@required  this.data,@required this.index, {super.key});
 
   @override
-  State<playerPage> createState() => _playerPageState();
+  State<playerPage> createState() => _playerPageState(this.data, this.index);
 }
 
 class _playerPageState extends State<playerPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
+    List<String> data;
+    int index;
+
+    _playerPageState(List<String> this.data, this.index);
+    
   @override
   Widget build(BuildContext context) {
+
+    String nowPlaying = data[index];
+
     final AnimationController _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 5))
           ..repeat();
+ 
 
     return Scaffold(
         appBar: AppBar(
@@ -41,8 +52,8 @@ class _playerPageState extends State<playerPage>
               height: 20,
             ),
             Text(
-              "Judul",
-              style: TextStyle(fontSize: 25, fontFamily: "Futura"),
+              nowPlaying,
+              style: TextStyle(fontSize: 20, fontFamily: "Futura",),textAlign: TextAlign.center,
             ),
             Container(
                 padding: EdgeInsets.only(left: 50, right: 50),
@@ -65,7 +76,16 @@ class _playerPageState extends State<playerPage>
                         shape: CircleBorder(), color: Colors.black),
                     child: IconButton(
                         iconSize: 30,
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            index = index-1;
+                            if(index < 0){
+                              index = data.length -1;
+                            }
+                            nowPlaying = data[index];
+                            print("now playing: $nowPlaying");
+                          });
+                        },
                         icon: Icon(
                           Icons.skip_previous,
                           color: Colors.white,
@@ -87,7 +107,16 @@ class _playerPageState extends State<playerPage>
                         shape: CircleBorder(), color: Colors.black),
                     child: IconButton(
                         iconSize: 30,
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            index = index+1;
+                            if(index > data.length -1){
+                              index = 0;
+                            }
+                            nowPlaying = data[index];
+                            print("now playing: $nowPlaying");
+                          });
+                        },
                         icon: Icon(
                           Icons.skip_next,
                           color: Colors.white,

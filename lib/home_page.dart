@@ -70,9 +70,10 @@ class HomePage extends StatelessWidget {
               child: Card(
                 child: InkWell(
                     onTap: () {
-                      goToPlayerPage(context);
+                      goToPlayerPage(context, DummySong, position);
                     },
                     child: Container(
+                        alignment: Alignment.centerLeft,
                         height: 50,
                         padding: EdgeInsets.all(10),
                         child: Text(
@@ -90,9 +91,9 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  goToPlayerPage(BuildContext context) {
+  goToPlayerPage(BuildContext context, List<String> data, int index) {
     return Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return playerPage();
+      return playerPage(data, index);
     }));
   }
 }
