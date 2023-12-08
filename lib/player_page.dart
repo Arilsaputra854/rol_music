@@ -117,7 +117,9 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                     activeColor: Colors.black,
                     value: musicPosition.inSeconds.toDouble(),
                     max: musicDuration.inSeconds.toDouble(),
-                    onChanged: (value) {})),
+                    onChanged: (value) {
+                      player.seek(Duration(seconds: value.toInt()));
+                    })),
             Container(
                 padding: EdgeInsets.only(left: 50, right: 50),
                 child: Row(
@@ -138,6 +140,11 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                         iconSize: 30,
                         onPressed: () {
                           setState(() {
+                            player.stop();
+
+                            setupAudioPlayer();
+                            musicPosition = Duration.zero;
+                            musicPosition = Duration.zero;
                             index = index - 1;
                             if (index < 0) {
                               index = data.length - 1;
@@ -161,7 +168,13 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                             setState(() {
                               player.pause();
                               stateStatus = 3;
-                            print("pause audio: ${nowPlaying.musicUrl}");
+                              print("pause audio: ${nowPlaying.musicUrl}");
+                            });
+                          }else if(stateStatus == 0){
+                            setState(() {
+                              player.play(AssetSource(data[index].musicUrl));
+                              stateStatus = 3;
+                              print("pause audio: ${nowPlaying.musicUrl}");
                             });
                           } else {
                             setState(() {
@@ -170,7 +183,7 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                             });
                           }
                         },
-                        icon: stateStatus == 3 || stateStatus == 2
+                        icon: stateStatus == 3 || stateStatus == 2 || stateStatus == 0
                             ? Icon(
                                 Icons.play_arrow,
                                 color: Colors.white,
@@ -187,6 +200,11 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                         iconSize: 30,
                         onPressed: () {
                           setState(() {
+                            player.stop();
+
+                            setupAudioPlayer();
+                            musicPosition = Duration.zero;
+                            musicPosition = Duration.zero;
                             index = index + 1;
                             if (index > data.length - 1) {
                               index = 0;
