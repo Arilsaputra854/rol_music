@@ -16,14 +16,65 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
   int index;
 
   _playerPageState(List<Music> this.data, this.index);
+  final player = AudioPlayer();
+  int stateStatus = 3;
+  Duration musicPosition = Duration.zero;
+  Duration musicDuration = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setupAudioPlayer();
+
+    player.onPlayerStateChanged.listen((state) {
+      setState(() {
+        stateStatus = state.index;
+        print("State saat ini $stateStatus");
+        // playing 1, paused 2, completed 3
+      });
+    });
+
+    player.onPositionChanged.listen((position) {
+      setState(() {
+        musicPosition = position;
+        if (musicPosition == musicDuration) {
+          musicPosition = Duration.zero;
+        }
+      });
+    });
+
+    player.onDurationChanged.listen((duration) {
+      setState(() {
+        musicDuration = duration;
+      });
+    });
+  }
+
+  setupAudioPlayer() async {
+    await player.setSource(AssetSource(data[index].musicUrl));
+  }
+
+  String formatDurasiMusik(Duration duration) {
+    String _formatAngka(int angka) => angka < 10 ? '0$angka' : angka.toString();
+
+    int jam = duration.inHours;
+    int menit = duration.inMinutes.remainder(60);
+    int detik = duration.inSeconds.remainder(60);
+
+    String durasiString =
+        '${_formatAngka(jam)}:${_formatAngka(menit)}:${_formatAngka(detik)}';
+
+    return jam > 0 ? durasiString : durasiString.substring(3);
+  }
 
   @override
   Widget build(BuildContext context) {
     Music nowPlaying = data[index];
 
-    final AnimationController _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 5))
-          ..repeat();
+    // final AnimationController _controller =
+    //     AnimationController(vsync: this, duration: Duration(seconds: 5))
+    //       ..repeat();
 
     return Scaffold(
         appBar: AppBar(
@@ -38,15 +89,17 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
             Container(
                 margin: EdgeInsets.only(top: 100, bottom: 20),
                 child: Center(
-                    child: AnimatedBuilder(
-                        animation: _controller,
-                        builder: (controller, child) {
-                          return Transform.rotate(
-                            angle: _controller.value * 2 * 3.14,
-                            child: child,
-                          );
-                        },
-                        child: Image.asset("assets/img/Logo.png")))),
+                    // child: AnimatedBuilder(
+                    //     animation: _controller,
+                    //     builder: (controller, child) {
+                    //       return Transform.rotate(
+                    //         angle: _controller.value * 2 * 3.14,
+                    //         child: child,
+                    //       );
+                    //     },
+                    child: Image.asset("assets/img/Logo.png")))
+            //)
+            ,
             SizedBox(
               height: 20,
             ),
@@ -62,13 +115,17 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                 padding: EdgeInsets.only(left: 50, right: 50),
                 child: Slider(
                     activeColor: Colors.black,
-                    value: 1,
+                    value: musicPosition.inSeconds.toDouble(),
+                    max: musicDuration.inSeconds.toDouble(),
                     onChanged: (value) {})),
             Container(
                 padding: EdgeInsets.only(left: 50, right: 50),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("00:00"), Text("03:10")],
+                  children: [
+                    Text(formatDurasiMusik(musicPosition)),
+                    Text(formatDurasiMusik(musicDuration))
+                  ],
                 )),
             SizedBox(height: 10),
             Row(
@@ -100,16 +157,28 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                     child: IconButton(
                         iconSize: 50,
                         onPressed: () {
-                          final player = AudioPlayer();
-                          var src = AssetSource(nowPlaying.musicUrl);
-                          print(nowPlaying.musicUrl);
-                          setState(() {});
-                          player.setSource(src);
+                          if (stateStatus == 1) {
+                            setState(() {
+                              player.pause();
+                              stateStatus = 3;
+                            print("pause audio: ${nowPlaying.musicUrl}");
+                            });
+                          } else {
+                            setState(() {
+                              player.resume();
+                              print("sekarang memutar: ${nowPlaying.musicUrl}");
+                            });
+                          }
                         },
-                        icon: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                        ))),
+                        icon: stateStatus == 3 || stateStatus == 2
+                            ? Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                              )
+                            : Icon(
+                                Icons.pause,
+                                color: Colors.white,
+                              ))),
                 SizedBox(width: 10),
                 Ink(
                     decoration: ShapeDecoration(

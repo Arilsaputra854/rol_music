@@ -20,7 +20,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/Logo.png
-    - assets/music/iphone_5s_ringtone.mp3
+    - assets/music/
   fonts:
     - family: Futura
       fonts:

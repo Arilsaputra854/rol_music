@@ -29,9 +29,9 @@ class HomePage extends StatelessWidget {
 
   listData() {
     List<Music> musicList = [];
-    musicList.add(Music("Iphone 5s Ringtone", "assets/music/iphone_5s_ringtone.mp3"));
-    musicList.add(Music("Iphone Ringtone", "assets/music/iphone_ringtone.mp3"));
-    musicList.add(Music("Samsung A80 Ringtone", "assets/music/samsung_a80_ringtone.mp3"));
+    musicList.add(Music("Iphone 5s Ringtone", "music/iphone_5s_ringtone.mp3"));
+    musicList.add(Music("Iphone Ringtone", "music/iphone_ringtone.mp3"));
+    musicList.add(Music("Samsung A80 Ringtone", "music/samsung_a80_ringtone.mp3"));
 
     if (musicList.isNotEmpty) {
       return ListView.builder(
