@@ -10,6 +10,7 @@ class splashScreen extends StatelessWidget {
     goToHomeScreen(context);
 
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
