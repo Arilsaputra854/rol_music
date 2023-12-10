@@ -7,6 +7,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Music> musicList = [];
+    musicList.add(Music("Iphone 5s Ringtone", "music/Iphone_5s_ringtone.mp3"));
+    musicList.add(Music("Iphone Ringtone", "music/Iphone_ringtone.mp3"));
+    musicList
+        .add(Music("Samsung A80 Ringtone", "music/Samsung_a80_ringtone.mp3"));
+    musicList.add(Music("Iphone 5s Ringtone", "music/Iphone_5s_ringtone.mp3"));
+    musicList.add(Music("Iphone Ringtone", "music/Iphone_ringtone.mp3"));
+    musicList
+        .add(Music("Samsung A80 Ringtone", "music/Samsung_a80_ringtone.mp3"));
+
     return Scaffold(
       appBar: AppBar(
           surfaceTintColor: Colors.white,
@@ -16,25 +26,18 @@ class HomePage extends StatelessWidget {
           ),
           leading: Image.asset("assets/img/Logo.png")),
       body: Container(
-        margin: EdgeInsets.only(top: 20, bottom: 20),
-        child: listData(),
+        margin: EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
+        child: listofMusic(musicList),
       ),
     );
   }
 
-  listData() {
-    List<Music> musicList = [];
-    musicList.add(Music("Iphone 5s Ringtone", "music/iphone_5s_ringtone.mp3"));
-    musicList.add(Music("Iphone Ringtone", "music/iphone_ringtone.mp3"));
-    musicList
-        .add(Music("Samsung A80 Ringtone", "music/samsung_a80_ringtone.mp3"));
-
+  listofMusic(List<Music> musicList) {
     if (musicList.isNotEmpty) {
       return ListView.builder(
           itemCount: musicList.length,
           itemBuilder: (BuildContext context, int position) {
             return Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
               child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
@@ -54,7 +57,7 @@ class HomePage extends StatelessWidget {
                             padding: EdgeInsets.all(10),
                             child: Text(
                                 style: TextStyle(fontFamily: "Futura"),
-                                musicList[position].musicName))),
+                                "${musicList.indexOf(musicList[position]) + 1}. ${musicList[position].musicName}"))),
                   )),
             );
           });
