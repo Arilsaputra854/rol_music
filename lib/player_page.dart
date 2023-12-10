@@ -71,11 +71,7 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    try{
     player.pause();
-    }catch(e){
-
-    }
     super.dispose();
   }
 
