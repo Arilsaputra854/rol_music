@@ -8,7 +8,6 @@ class splashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     goToHomeScreen(context);
-
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(10),
