@@ -72,10 +72,6 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     Music nowPlaying = data[index];
 
-    // final AnimationController _controller =
-    //     AnimationController(vsync: this, duration: Duration(seconds: 5))
-    //       ..repeat();
-
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -89,14 +85,6 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
             Container(
                 margin: EdgeInsets.only(top: 100, bottom: 20),
                 child: Center(
-                    // child: AnimatedBuilder(
-                    //     animation: _controller,
-                    //     builder: (controller, child) {
-                    //       return Transform.rotate(
-                    //         angle: _controller.value * 2 * 3.14,
-                    //         child: child,
-                    //       );
-                    //     },
                     child: Image.asset("assets/img/Logo.png")))
             //)
             ,
