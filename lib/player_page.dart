@@ -21,36 +21,6 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
   Duration musicPosition = Duration.zero;
   Duration musicDuration = Duration.zero;
 
-  @override
-  void initState() {
-    super.initState();
-
-    setupAudioPlayer();
-
-    player.onPlayerStateChanged.listen((state) {
-      setState(() {
-        stateStatus = state.index;
-        print("State saat ini $stateStatus");
-        // playing 1, paused 2, completed 3
-      });
-    });
-
-    player.onPositionChanged.listen((position) {
-      setState(() {
-        musicPosition = position;
-        if (musicPosition == musicDuration) {
-          musicPosition = Duration.zero;
-        }
-      });
-    });
-
-    player.onDurationChanged.listen((duration) {
-      setState(() {
-        musicDuration = duration;
-      });
-    });
-  }
-
   setupAudioPlayer() async {
     await player.setSource(AssetSource(data[index].musicUrl));
 
@@ -72,6 +42,44 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    setupAudioPlayer();
+
+    player.onPlayerStateChanged.listen((state) {
+   
+        stateStatus = state.index;
+        print("State saat ini $stateStatus");
+    });
+
+    player.onPositionChanged.listen((position) {
+      setState(() {
+        musicPosition = position;
+        if (musicPosition == musicDuration) {
+          musicPosition = Duration.zero;
+        }
+      });
+    });
+
+    player.onDurationChanged.listen((duration) {
+      setState(() {
+        musicDuration = duration;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    try{
+    player.pause();
+    }catch(e){
+
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Music nowPlaying = data[index];
 
@@ -82,6 +90,7 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
 
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
             "Halaman Pemutar",
             style: TextStyle(fontFamily: "Futura"),

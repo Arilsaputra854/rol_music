@@ -18,7 +18,7 @@ class splashScreen extends StatelessWidget {
           SizedBox(height: 80,),
           Image.asset("assets/img/Logo.png"),
           Text(
-            "Created by \n Aril Saputra",
+            "Created by \nAril Saputra",
             style: TextStyle(
                 fontSize: 15,
                 decoration: TextDecoration.none,
