@@ -1,9 +1,9 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=D:\flutter_windows_3.16.2-stable\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\Administrator\Desktop\rol_music"
+export "FLUTTER_ROOT=/Volumes/Data/4. Programming/flutter"
+export "FLUTTER_APPLICATION_PATH=/Volumes/Data/4. Programming/rol_music"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
-export "FLUTTER_TARGET=lib\main.dart"
+export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.1.0"
 export "FLUTTER_BUILD_NUMBER=0.1.0"
