@@ -22,7 +22,12 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
   Duration musicDuration = Duration.zero;
 
   setupAudioPlayer() async {
-    await player.setSource(AssetSource(data[index].musicUrl));
+    // DeviceFileSource dfs = DeviceFileSource(
+    //     "/storage/emulated/0/Android/data/com.example.rol_music/files/music/AUD-20230704-WA0006");
+    DeviceFileSource dfs = DeviceFileSource(data[index].musicUrl);
+
+    print("URL: " + data[index].musicUrl);
+    await player.play(dfs);
 
     musicPosition = Duration.zero;
     musicPosition = Duration.zero;
@@ -48,9 +53,8 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
     setupAudioPlayer();
 
     player.onPlayerStateChanged.listen((state) {
-   
-        stateStatus = state.index;
-        print("State saat ini $stateStatus");
+      stateStatus = state.index;
+      print("State saat ini $stateStatus");
     });
 
     player.onPositionChanged.listen((position) {
@@ -356,7 +360,7 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
                       });
                     } else if (stateStatus == 0) {
                       setState(() {
-                        player.play(AssetSource(data[index].musicUrl));
+                        player.play(AssetSource(data[index].musicUrl + ".mp3"));
                         stateStatus = 3;
                         print("pause audio: ${nowPlaying.musicUrl}");
                       });
