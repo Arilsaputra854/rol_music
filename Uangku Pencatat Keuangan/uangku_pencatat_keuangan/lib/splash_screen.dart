@@ -5,7 +5,7 @@ import 'package:uangku_pencatat_keuangan/home.dart';
 import 'package:uangku_pencatat_keuangan/login.dart';
 
 class Splashscreen extends StatelessWidget {
-  const Splashscreen({Key key}) : super(key: key);
+  const Splashscreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

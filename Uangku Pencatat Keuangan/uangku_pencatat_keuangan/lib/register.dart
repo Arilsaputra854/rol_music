@@ -16,7 +16,7 @@ import 'package:uangku_pencatat_keuangan/login.dart';
 import 'emailVer.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key key}) : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -107,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             bottom: 10, top: 10),
                                         child: TextFormField(
                                             validator: (value) {
-                                              if (value.isEmpty) {
+                                              if (value!.isEmpty) {
                                                 return "Please enter Email.";
                                               }
                                             },
@@ -128,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             top: 10, bottom: 10),
                                         child: TextFormField(
                                             validator: (value) {
-                                              if (value.isEmpty) {
+                                              if (value!.isEmpty) {
                                                 return "Please enter your new Password.";
                                               }
 
@@ -152,7 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             top: 10, bottom: 30),
                                         child: TextFormField(
                                             validator: (value) {
-                                              if (value.isEmpty) {
+                                              if (value!.isEmpty) {
                                                 return "Please enter your confirm password.";
                                               }
                                               if (value !=
@@ -208,14 +208,14 @@ class _RegisterPageState extends State<RegisterPage> {
   void Registered() {
     final db = FirebaseFirestore.instance;
 
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       _Email = EmailController.text;
       _password = PasswordController.text;
 
       _verificationEmail({email}) {
         FirebaseAuth.instance.currentUser?.sendEmailVerification();
 
-        var isEmailVerified = FirebaseAuth.instance.currentUser.emailVerified;
+        var isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
 
         if (isEmailVerified) {
           Fluttertoast.showToast(msg: "Email berhasil diVerifikasi");
@@ -225,13 +225,11 @@ class _RegisterPageState extends State<RegisterPage> {
       _signUpFirebase({email, password}) async {
         try {
           UserCredential userCredential = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: email, password: password)
-              .then((value) {
-            Fluttertoast.showToast(msg: "Akun berhasil dibuat");
-            Navigator.pop(
-                context, MaterialPageRoute(builder: (context) => login_page()));
-            print("LOG:" + value.user.toString());
-          });
+              .createUserWithEmailAndPassword(email: email, password: password);
+          Fluttertoast.showToast(msg: "Akun berhasil dibuat");
+          Navigator.pop(
+              context, MaterialPageRoute(builder: (context) => login_page()));
+          //print("LOG:" + value.user.toString());
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
             Fluttertoast.showToast(msg: "Error: Password minimal 6 huruf.");

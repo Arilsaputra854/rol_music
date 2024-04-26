@@ -5,14 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'form_money.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   State<HomeScreen> createState() => _HomeState();
 }
 
 class _HomeState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   int Saldo = 0;
-  TabController _tabcontroller;
+  TabController? _tabcontroller;
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _HomeState extends State<HomeScreen> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    _tabcontroller.dispose();
+    _tabcontroller?.dispose();
     super.dispose();
   }
 
@@ -111,7 +111,8 @@ class _HomeState extends State<HomeScreen> with SingleTickerProviderStateMixin {
                     Container(
                         margin: EdgeInsets.all(5),
                         child: Text(
-                          FirebaseAuth.instance.currentUser.email,
+                          FirebaseAuth.instance.currentUser?.email ??
+                              "No Signin",
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "Inter",

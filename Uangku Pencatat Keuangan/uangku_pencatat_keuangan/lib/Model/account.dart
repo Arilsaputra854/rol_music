@@ -4,9 +4,9 @@ class Account {
   final String id;
 
   Account({
-    this.username,
-    this.password,
-    this.id,
+    required this.username,
+    required this.password,
+    required this.id,
   });
 
   Map<String, dynamic> toJson() =>

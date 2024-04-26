@@ -6,12 +6,17 @@ import 'package:uangku_pencatat_keuangan/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyAS_Rxf2csoFKuIoYVJ_dWdxhknGjFS3l4",
+          appId: "1:713929882960:web:24eb93a22221e4bf22c055",
+          messagingSenderId: "713929882960",
+          projectId: "uangku-application"));
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

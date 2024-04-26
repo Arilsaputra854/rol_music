@@ -9,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uangku_pencatat_keuangan/home.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
-  const EmailVerificationScreen({Key key}) : super(key: key);
+  const EmailVerificationScreen({Key? key}) : super(key: key);
 
   @override
   State<EmailVerificationScreen> createState() =>
@@ -20,13 +20,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     bool isVerifiedEmail = false;
-    Timer timer;
 
     checkEmailVerified() async {
-      await FirebaseAuth.instance.currentUser.reload();
+      await FirebaseAuth.instance.currentUser?.reload();
 
       setState(() {
-        isVerifiedEmail = FirebaseAuth.instance.currentUser.emailVerified;
+        isVerifiedEmail = FirebaseAuth.instance.currentUser!.emailVerified;
         print("STATUS VERIFIED: $isVerifiedEmail");
       });
 
@@ -36,9 +35,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: ((context) => HomeScreen())));
-        timer.cancel();
       } else {
-        FirebaseAuth.instance.currentUser.sendEmailVerification();
+        FirebaseAuth.instance.currentUser!.sendEmailVerification();
       }
     }
 
@@ -46,16 +44,13 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     void initState() {
       super.initState();
 
-      FirebaseAuth.instance.currentUser.sendEmailVerification();
+      FirebaseAuth.instance.currentUser!.sendEmailVerification();
       checkEmailVerified();
-      timer =
-          Timer.periodic(Duration(seconds: 3), (timer) => checkEmailVerified());
     }
 
     @override
     dispose() {
       super.dispose();
-      timer.cancel();
     }
 
     return Expanded(
