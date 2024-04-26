@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uangku_pencatat_keuangan/home.dart';
 import 'package:uangku_pencatat_keuangan/login.dart';
 
@@ -9,10 +10,32 @@ class Splashscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String currentUser;
     Timer(
         Duration(seconds: 5),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => login_page())));
+
+    //cek jika pernah login maka langsung ke home
+    getUserToken().then((String? token) {
+      if (token != null && token.isNotEmpty) {
+        currentUser = token ?? "";
+
+        if (currentUser != "") {
+          print("LOG: token found! ${token}");
+          Fluttertoast.showToast(msg: "Preparing application...");
+          Timer(
+              Duration(seconds: 5),
+              () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => HomeScreen())));
+        } else {
+          Timer(
+              Duration(seconds: 5),
+              () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => login_page())));
+        }
+      }
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,

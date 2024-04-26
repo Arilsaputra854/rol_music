@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:intl/intl.dart';
 
 class FormMoneyScreen extends StatelessWidget {
   FormMoneyScreen(this.type);
@@ -54,7 +57,7 @@ class FormMoneyScreen extends StatelessWidget {
                                 child: TextFormField(
                                     keyboardType: TextInputType.number,
                                     style: TextStyle(
-                                        fontSize: 20, fontFamily: "Inter"),
+                                        fontSize: 25, fontFamily: "Inter"),
                                     controller: _jumlahController,
                                     decoration: InputDecoration(
                                       filled: true,
@@ -63,12 +66,12 @@ class FormMoneyScreen extends StatelessWidget {
                                           borderSide: BorderSide(
                                               color: Colors.yellow, width: 1),
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(30))),
+                                              Radius.circular(10))),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.yellow, width: 1),
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(30))),
+                                              Radius.circular(10))),
                                     )),
                               )
                             ],
