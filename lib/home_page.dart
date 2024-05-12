@@ -141,9 +141,7 @@ class _HomePageState extends State<HomePage> {
 
       if (result != null) {
         String? musicPath = await moveAndRenameFile(result);
-        //musicPath = musicPath! + ".mp3";
 
-        //print("DEBUG: " + musicPath);
         setState(() {
           if (!musicList
               .any((music) => music.musicName == result.files.single.name)) {
@@ -166,24 +164,18 @@ class _HomePageState extends State<HomePage> {
     Directory? storageDirectory = await getExternalStorageDirectory();
     String? storagePath = (storageDirectory?.path);
     print(storagePath);
-    // Replace 'path_to_your_folder' with the actual path of your folder
     final directory = Directory(storagePath! + "/music");
 
-    // List all files in the directory
     List<FileSystemEntity> fileList = directory.listSync();
 
-    // Extract filenames from the list of files
     List<String> filenames = fileList.map((file) {
-      return file.path
-          .split('/')
-          .last; // Adjust this if your path uses a different separator
+      return file.path.split('/').last;
     }).toList();
 
     filenames.forEach((filename) {
       String temp = (storagePath + "/music" + "/${filename}");
       print("RETRIVING MUSIC FROM FOLDER: " + temp);
 
-      //read file if duplicate or not
       if (!musicList.any((music) => music.musicName == filename)) {
         musicList.add(Music(filename, temp));
       }

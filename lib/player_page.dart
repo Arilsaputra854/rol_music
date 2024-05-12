@@ -22,8 +22,6 @@ class _playerPageState extends State<playerPage> with TickerProviderStateMixin {
   Duration musicDuration = Duration.zero;
 
   setupAudioPlayer() async {
-    // DeviceFileSource dfs = DeviceFileSource(
-    //     "/storage/emulated/0/Android/data/com.example.rol_music/files/music/AUD-20230704-WA0006");
     DeviceFileSource dfs = DeviceFileSource(data[index].musicUrl);
 
     print("URL: " + data[index].musicUrl);
