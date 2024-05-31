@@ -6,6 +6,7 @@ import "package:flutter/services.dart";
 import "package:path_provider/path_provider.dart";
 import "package:rol_music/model/music.dart";
 import "package:rol_music/player_page.dart";
+import "package:rol_music/util/util.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,12 +46,12 @@ class _HomePageState extends State<HomePage> {
           leading: Image.asset("assets/img/Logo.png")),
       body: Container(
         margin: EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 10),
-        child: listofMusic(musicList),
+        child: widgetListOfMusic(musicList),
       ),
     );
   }
 
-  listofMusic(List<Music> musicList) {
+  widgetListOfMusic(List<Music> musicList) {
     if (musicList.isNotEmpty) {
       return ListView.builder(
           itemCount: musicList.length,
@@ -68,6 +69,11 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(20),
                         onTap: () {
                           goToPlayerPage(context, musicList, position);
+                        },
+                        onLongPress: () {
+                          CustomDialog(context, "Hapus musik ini?",
+                              function: () =>
+                                  deleteMusic(musicList[position].musicUrl));
                         },
                         child: Container(
                             alignment: Alignment.centerLeft,
@@ -163,7 +169,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> readMusic() async {
     Directory? storageDirectory = await getExternalStorageDirectory();
     String? storagePath = (storageDirectory?.path);
-    print(storagePath);
+    print("Membaca musik pada path $storagePath");
     final directory = Directory(storagePath! + "/music");
 
     List<FileSystemEntity> fileList = directory.listSync();
@@ -172,15 +178,32 @@ class _HomePageState extends State<HomePage> {
       return file.path.split('/').last;
     }).toList();
 
-    filenames.forEach((filename) {
-      String temp = (storagePath + "/music" + "/${filename}");
-      print("RETRIVING MUSIC FROM FOLDER: " + temp);
+    setState(() {
+      musicList.clear(); //menghapus sebelum menginisialisasi kembali
+      filenames.forEach((filename) {
+        String temp = (storagePath + "/music" + "/${filename}");
 
-      if (!musicList.any((music) => music.musicName == filename)) {
-        musicList.add(Music(filename, temp));
-      }
-
-      setState(() {});
+        if (!musicList.any((music) => music.musicName == filename)) {
+          musicList.add(Music(filename, temp));
+        }
+      });
     });
+  }
+
+  Future<void> deleteMusic(String filename) async {
+    File file = new File(filename);
+    try {
+      if (await file.exists()) {
+        await file.delete().then((value) async {
+          readMusic();
+          print("Berhasil menghapus: $filename");
+          Navigator.pop(context);
+        });
+      } else {
+        CustomDialog(context, "ERROR: File tidak ditemukan!");
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
